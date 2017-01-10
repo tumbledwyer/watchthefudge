@@ -22,8 +22,18 @@ app.use(function (req, res, next) {
 app.use(bodyParser.json());
 
 app.post("/init", function (req, res) {
-    res.send("hello");   
- 
+    addWatch({name: "Swatch Classic", price: 500, warranty: 1})
+    .then(addWatch({name: "Swatch Sport", price: 1500, warranty: 3}))
+    .then(addWatch({name: "Rolex Gold", price: 10000, warranty: 3}))
+    .then(res.send("hello"));    
 });
+
+function addWatch(watch) {  
+    return esClient.index({
+        index: "watches",
+        type: "watch",
+        body: watch
+    });
+}
 
 app.listen(9999);

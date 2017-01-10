@@ -4,7 +4,7 @@
        var vm = this;
 
        function init(){
-           $http.post("localhost:9999/init").then(function(){
+           $http.post("http://localhost:9999/init").then(function(){
                alert("meow");
            });
            
