@@ -10,8 +10,15 @@
 </head>
 
 <body data-ng-app="watchthefudge">
-    <div data-ng-controller="mainController as vm">     
+    <div data-ng-controller="mainController as vm">    
+        <input type="text" data-ng-model="searchText"/> 
+        <button data-ng-click="vm.search(searchText)">Search</button>
+        <br/>
         <button data-ng-click="vm.init()">Init</button>
+
+        <div data-ng-repeat="result in vm.searchResult">
+            <div>{{result.name}}</div>
+        </div>                        
     </div>		
 </body>
 </html>

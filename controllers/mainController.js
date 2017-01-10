@@ -5,6 +5,12 @@
 
        vm.init = function(){
            searchClient.init();
+       }
+
+       vm.search = function(text){
+           searchClient.search(text).then(function(results){
+               vm.searchResult = results.data;
+           });
        }   
 
     }

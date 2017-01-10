@@ -28,6 +28,34 @@ app.post("/init", function (req, res) {
     .then(res.send("hello"));    
 });
 
+app.post("/search", function (req, res) {
+    console.log(req.body);
+    console.log(createSearchQuery(req));
+        search("watches", {            
+            query: createSearchQuery(req)            
+        }).then(function(result){
+           
+            var hits = result.hits.hits;
+            var watches = hits.map(function(hit){
+                return hit._source;
+            });
+             console.log(watches)
+            res.send(watches);
+        })
+});
+
+function createSearchQuery(req){
+    return {
+        "bool": {
+            "must": {
+                query_string: {
+                    query: req.body.searchText
+                }
+            }
+        }
+    }
+}
+
 function addWatch(watch) {  
     return esClient.index({
         index: "watches",
