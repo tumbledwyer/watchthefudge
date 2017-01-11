@@ -59,9 +59,6 @@ function createSearchQuery(req) {
     }
 }
 
-
-
-
 function addWatch(watch) {
     return esClient.index({
         index: "watches",

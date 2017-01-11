@@ -5,7 +5,7 @@
 
         function init() {
             $http.post("http://localhost:9999/init").then(function () {
-                alert("meow");
+                alert("Db seeded. Clicking this again will create duplicates");
             });
         }
 
