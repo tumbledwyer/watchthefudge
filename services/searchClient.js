@@ -14,7 +14,6 @@
                 { searchText: text }
             );
         }
-
         
         return {
             init: init,

@@ -22,29 +22,25 @@ app.use(function (req, res, next) {
 app.use(bodyParser.json());
 
 app.post("/init", function (req, res) {
-    addWatch({name: "Swatch Classic", price: 500, warranty: 1})
-    .then(addWatch({name: "Swatch Sport", price: 1500, warranty: 3}))
-    .then(addWatch({name: "Rolex Gold", price: 10000, warranty: 3}))
-    .then(res.send("hello"));    
+    addWatch({ name: "Swatch Classic", price: 500, warranty: 1 })
+        .then(addWatch({ name: "Swatch Sport", price: 1500, warranty: 3 }))
+        .then(addWatch({ name: "Rolex Gold", price: 10000, warranty: 3 }))
+        .then(res.send("hello"));
 });
 
 app.post("/search", function (req, res) {
-    console.log(req.body);
-    console.log(createSearchQuery(req));
-        search("watches", {            
-            query: createSearchQuery(req)            
-        }).then(function(result){
-           
-            var hits = result.hits.hits;
-            var watches = hits.map(function(hit){
-                return hit._source;
-            });
-             console.log(watches)
-            res.send(watches);
-        })
+    search("watches", {
+        query: createSearchQuery(req)
+    }).then(function (result) {
+        var hits = result.hits.hits;
+        var watches = hits.map(function (hit) {
+            return hit._source;
+        });
+        res.send(watches);
+    })
 });
 
-function createSearchQuery(req){
+function createSearchQuery(req) {
     return {
         "bool": {
             "must": {
@@ -56,7 +52,7 @@ function createSearchQuery(req){
     }
 }
 
-function addWatch(watch) {  
+function addWatch(watch) {
     return esClient.index({
         index: "watches",
         type: "watch",
