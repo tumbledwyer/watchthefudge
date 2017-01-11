@@ -7,6 +7,9 @@ Installation instructions
 *Note you may have to set your JAVA_HOME environment variable
 
 - Download or clone repo
+
 - Run npm install
+
 - Run npm start
+
 - Run index.html
