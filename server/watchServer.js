@@ -44,13 +44,23 @@ function createSearchQuery(req) {
     return {
         "bool": {
             "must": {
-                query_string: {
-                    query: req.body.searchText
+                "query_string": {
+                    query: req.body.searchText || "*"
+                },             
+            },    
+            filter: {
+                "range": {
+                    "price": {                        
+                        "lte": req.body.priceMax
+                    }
                 }
             }
         }
     }
 }
+
+
+
 
 function addWatch(watch) {
     return esClient.index({

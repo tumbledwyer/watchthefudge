@@ -9,12 +9,10 @@
             });
         }
 
-        function search(text) {
-            return $http.post("http://localhost:9999/search",
-                { searchText: text }
-            );
+        function search(searchTo) {
+            return $http.post("http://localhost:9999/search", searchTo);
         }
-        
+
         return {
             init: init,
             search: search

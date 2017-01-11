@@ -1,26 +1,61 @@
 <!doctype html>
 <html>
+
 <head>
-	<title>Watches For Africa</title>    
-	<script src="node_modules/angular/angular.js"></script>
+    <title>Watches For Africa</title>
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="node_modules/angular-aria/angular-aria.js"></script>
+    <script src="node_modules/angular-animate/angular-animate.js"></script>
+    <script src="node_modules/angular-material/angular-material.js"></script>
     <script src="app.js"></script>
     <script src="services/searchClient.js"></script>
     <script src="controllers/mainController.js"></script>
+    <link rel="stylesheet" href="node_modules/angular-material/angular-material.css">
     <link rel="stylesheet" href="css/site.css">
 </head>
 
-<body data-ng-app="watchthefudge">
-    <div data-ng-controller="mainController as vm">    
-        <input type="text" data-ng-model="searchText"/> 
-        <button data-ng-click="vm.search(searchText)">Search</button>
-        <br/>
-        <button data-ng-click="vm.init()">Init</button>
+<body data-ng-app="watchthefudge" data-ng-controller="mainController as vm">
+    <div class="container" data-ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h3>Watch Up Doc</h2>
+            </div>
+        </md-toolbar>
+        <md-content>
+            <md-input-container>
+                <div layout="row">
+                    <input type="text" data-ng-model="vm.searchText" />
+                    <md-button class="md-primary md-raised" data-ng-click="vm.search()">Search</md-button>
+                    <md-button class="md-warn md-raised" data-ng-click="vm.init()">Seed DB</md-button>
+                </div>
+            </md-input-container>
+            <div layout="row">
+                <div flex="60">
+                    <div>Price: R{{vm.price}}</div>
+                    <md-slider flex ng-model="vm.price" min="0" max="15000"></md-slider>
+                </div>
+                <div >
+                    <div>Warranty</div>
+                    <br/>
+                    <md-checkbox ng-model="vm.oneYear">1 Year</md-checkbox>
+                    <md-checkbox ng-model="vm.threeYear">3 Year</md-checkbox>
+                </div>
+            </div>
 
-        <div data-ng-repeat="result in vm.searchResult">
-            <div>{{result.name}}</div>
-            <div>{{result.price}}</div>
-            <div>{{result.warranty}}</div>
-        </div>                        
-    </div>		
+            <md-list>
+                <md-toolbar layout="row" class="md-toolbar-tools md-hue-1">
+                    <div flex="60">Product</div>
+                    <div flex="20">Warranty</div>
+                    <div flex="20">Price</div>
+                </md-toolbar>
+                <md-list-item layout="row" data-ng-repeat="result in vm.searchResult">
+                    <div flex="60">{{result.name}}</div>
+                    <div flex="20">{{result.warranty}} years</div>
+                    <div flex="20">R{{result.price}}</div>
+                </md-list-item>
+            </md-list>
+        </md-content>
+    </div>
 </body>
+
 </html>
